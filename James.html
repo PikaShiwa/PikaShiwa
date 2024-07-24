@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>James Hallidays Birthday Gift Machine</title>
+    <style>
+        body {
+            background-color: #0d1117; /* dark background */
+            color: #c9d1d9; /* light text */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            text-align: center;
+            position: relative;
+        }
+        .textbox, .button {
+            border: none;
+            background-color: #6f42c1; /* purple background */
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            color: #fff; /* white text */
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* subtle shadow */
+            transition: all 0.3s ease-in-out;
+        }
+        .textbox {
+            width: 400px;
+            height: 60px;
+            font-size: 20px;
+            overflow: hidden;
+        }
+        .button:hover {
+            cursor: pointer;
+            background-color: #b02e77; /* hover color */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6); /* increased shadow on hover */
+        }
+        .explode {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3); /* semi-transparent white */
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            animation: explode 0.5s ease-out;
+        }
+        @keyframes explode {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-size: 48px; margin-bottom: 20px;">James Hallidays Birthday Gift Machine</h1>
+        <input type="text" class="textbox" id="result" readonly placeholder="Selected Item">
+        <button class="button" onclick="rollItem()">Roll It</button>
+        <div class="explode" id="explosion"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
+    <script>
+        function rollItem() {
+            var items = [
+                "Denim Jacket - $38",
+                "Drop Crotch Pants - $37",
+                "Space Invaders T-Shirt - $16",
+                "SIMON Game Pin - $3",
+                "D20 Game Pin - $10",
+                "Heavy Metal Pins - $15",
+                "\"Save Ferris\" Pin - $6.90",
+                "Guns N' Roses Pin - $12",
+                "Atari 2600+ Console - $130",
+                "Adventure Game Cartridge - $19",
+                "Space Invaders Cartridge - $7-8",
+                "Pac-Man Cartridge - $9-10",
+                "Donkey Kong Cartridge - $15",
+                "Joust Cartridge - $11-12",
+                "Asteroids Cartridge - $8-9"
+            ];
+
+            var randomIndex = Math.floor(Math.random() * items.length);
+            var selectedItem = items[randomIndex];
+
+            var resultBox = document.getElementById('result');
+            var explosion = document.getElementById('explosion');
+
+            explosion.style.width = '500px';
+            explosion.style.height = '500px';
+            explosion.style.opacity = '0';
+
+            setTimeout(function() {
+                resultBox.value = selectedItem;
+                explosion.style.width = '0';
+                explosion.style.height = '0';
+                explosion.style.opacity = '1';
+
+                // Confetti effect
+                var duration = 3000;
+                var animationEnd = Date.now() + duration;
+                var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                var interval = setInterval(function() {
+                    var timeLeft = animationEnd - Date.now();
+
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+
+                    var particleCount = 50 * (timeLeft / duration);
+                    // since particles fall down, start a bit higher than random
+                    confetti({
+                        particleCount,
+                        ...defaults,
+                        origin: { y: 0.6 }
+                    });
+                }, 250);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
