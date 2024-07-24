@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>James Hallidays Birthday Gift Machine</title>
+    <title>James Halliday's Birthday Gift Machine</title>
     <style>
         body {
-            background-color: #0d1117; /* dark background */
+            background-color: #000000; /* dark background */
             color: #c9d1d9; /* light text */
             font-family: 'Arial', sans-serif;
             display: flex;
@@ -19,6 +19,12 @@
         .container {
             text-align: center;
             position: relative;
+            max-width: 600px; /* limit width for better fitting into the theme */
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* slightly transparent black background */
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* subtle shadow */
+            overflow: hidden; /* ensure contents do not overflow */
         }
         .textbox, .button {
             border: none;
@@ -35,10 +41,21 @@
             transition: all 0.3s ease-in-out;
         }
         .textbox {
-            width: 400px;
+            width: calc(100% - 100px); /* adjust width to fit within container */
+            max-width: 100%; /* ensure it doesn't overflow */
             height: 60px;
             font-size: 20px;
             overflow: hidden;
+            display: inline-block; /* allow inline display with other elements */
+            vertical-align: middle; /* align vertically with other elements */
+            margin-right: 10px;
+            text-align: left;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+        .button {
+            display: inline-block; /* ensure button is inline with textbox */
+            vertical-align: middle; /* align vertically with other elements */
         }
         .button:hover {
             cursor: pointer;
@@ -69,12 +86,50 @@
                 opacity: 0;
             }
         }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 10px;
+            background: #6f42c1; /* purple background for slider */
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .15s ease-in-out;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #fff; /* white slider thumb */
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #fff; /* white slider thumb for Firefox */
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .budget-label {
+            text-align: left;
+            font-size: 16px;
+            margin-top: 10px;
+            color: #b3b3b3; /* light grey text */
+            display: inline-block; /* ensure inline display */
+            vertical-align: middle; /* align vertically */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 style="font-size: 48px; margin-bottom: 20px;">James Hallidays Birthday Gift Machine</h1>
+        <h1 style="font-size: 48px; margin-bottom: 20px;">James Halliday's Birthday Gift Machine</h1>
         <input type="text" class="textbox" id="result" readonly placeholder="Selected Item">
+        <div class="budget-label">Maximum Budget: $<span id="max-budget">200</span></div>
+        <input type="range" id="budget-range" min="0" max="200" value="100" step="1" oninput="updateMaxBudget()">
         <button class="button" onclick="rollItem()">Roll It</button>
         <div class="explode" id="explosion"></div>
     </div>
@@ -82,26 +137,38 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
     <script>
         function rollItem() {
+            var budget = parseInt(document.getElementById('budget-range').value);
+
             var items = [
-                "Denim Jacket - $38",
-                "Drop Crotch Pants - $37",
-                "Space Invaders T-Shirt - $16",
-                "SIMON Game Pin - $3",
-                "D20 Game Pin - $10",
-                "Heavy Metal Pins - $15",
-                "\"Save Ferris\" Pin - $6.90",
-                "Guns N' Roses Pin - $12",
-                "Atari 2600+ Console - $130",
-                "Adventure Game Cartridge - $19",
-                "Space Invaders Cartridge - $7-8",
-                "Pac-Man Cartridge - $9-10",
-                "Donkey Kong Cartridge - $15",
-                "Joust Cartridge - $11-12",
-                "Asteroids Cartridge - $8-9"
+                { name: "Denim Jacket", price: 38 },
+                { name: "Drop Crotch Pants", price: 37 },
+                { name: "Space Invaders T-Shirt", price: 16 },
+                { name: "SIMON Game Pin", price: 3 },
+                { name: "D20 Game Pin", price: 10 },
+                { name: "Heavy Metal Pins", price: 15 },
+                { name: "\"Save Ferris\" Pin", price: 6.90 },
+                { name: "Guns N' Roses Pin", price: 12 },
+                { name: "Atari 2600+ Console", price: 130 },
+                { name: "Adventure Game Cartridge", price: 19 },
+                { name: "Space Invaders Cartridge", price: 7 },
+                { name: "Pac-Man Cartridge", price: 9 },
+                { name: "Donkey Kong Cartridge", price: 15 },
+                { name: "Joust Cartridge", price: 11 },
+                { name: "Asteroids Cartridge", price: 8 }
             ];
 
-            var randomIndex = Math.floor(Math.random() * items.length);
-            var selectedItem = items[randomIndex];
+            // Filter items based on budget range
+            var filteredItems = items.filter(function(item) {
+                return item.price <= budget;
+            });
+
+            if (filteredItems.length === 0) {
+                alert("No items found within the specified budget range.");
+                return;
+            }
+
+            var randomIndex = Math.floor(Math.random() * filteredItems.length);
+            var selectedItem = filteredItems[randomIndex];
 
             var resultBox = document.getElementById('result');
             var explosion = document.getElementById('explosion');
@@ -111,7 +178,7 @@
             explosion.style.opacity = '0';
 
             setTimeout(function() {
-                resultBox.value = selectedItem;
+                resultBox.value = selectedItem.name + " - $" + selectedItem.price.toFixed(2);
                 explosion.style.width = '0';
                 explosion.style.height = '0';
                 explosion.style.opacity = '1';
@@ -141,6 +208,11 @@
                     });
                 }, 250);
             }, 500);
+        }
+
+        function updateMaxBudget() {
+            var maxBudget = document.getElementById('budget-range').value;
+            document.getElementById('max-budget').textContent = maxBudget;
         }
     </script>
 </body>
