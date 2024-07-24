@@ -11,21 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-       .copy-container {
-    align-items: bottom; /* Center align items vertically */
-    justify-content: space-between; /* Distribute items evenly with space between them */
-    margin-top: 20px; /* Adjust margin top as needed */
+        .mt-3 {
+    align-items: center;
+    justify-content: center;
 }
-
-.copy-text {
-    margin-top: 0; /* Remove default bottom margin of paragraph */
-}
-
-.copy-button {
-    cursor: pointer; /* Ensure the cursor changes to pointer on hover */
-}
-
-
         /* Custom styles for Wicked Hosting website */
         body {
             font-family: 'Roboto', sans-serif;
@@ -65,11 +54,19 @@
         #hero h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
+            color: #000000;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
         }
 
         #hero p {
             font-size: 1.5rem;
             margin-bottom: 30px;
+            color: #00FFFF;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0 #800080, 4px 4px 0 #0000FF;
         }
 
         .btn-primary {
@@ -114,6 +111,7 @@
             background-color: #000000; /* Dark background for footer */
             color: white;
             padding: 30px 0;
+            text-align: center; /* Center-align text in footer */
         }
 
         footer a {
@@ -124,18 +122,44 @@
             color: #00FFFF; /* Hover color for footer links */
             text-decoration: none;
         }
-                .copy-button {
-            cursor: pointer;
+
+        .copy-container {
+            align-items: bottom; /* Center align items vertically */
+            justify-content: space-between; /* Distribute items evenly with space between them */
+            margin-top: 20px; /* Adjust margin top as needed */
+        }
+
+        .copy-text {
+            margin-top: 0; /* Remove default bottom margin of paragraph */
+        }
+
+        .copy-button {
+            cursor: pointer; /* Ensure the cursor changes to pointer on hover */
             font-size: 1.2rem; /* Adjust font size if needed */
             padding: 5px 10px;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         .copy-button:hover {
             background-color: #0056b3;
+        }
+
+        .discord-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #BD5FFF;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .discord-button:hover {
+            background-color: #9b59b6;
         }
     </style>
 </head>
@@ -168,23 +192,16 @@
     <!-- Hero Section -->
     <section id="hero">
         <div class="container">
-            <h1 style="color: #000000; font-family: 'Arial Black', sans-serif; font-size: 48px; text-transform: uppercase; text-shadow: 
-    -1px -1px 0 #ffffff,  
-     1px -1px 0 #ffffff,
-    -1px  1px 0 #ffffff,
-     1px  1px 0 #ffffff;
-">Wicked Hosting</h1>
-
-            <p style="color: #00FFFF; font-family: 'Arial Black', sans-serif; font-size: 36px; text-transform: uppercase; text-shadow: 2px 2px 0 #800080, 4px 4px 0 #0000FF;">CHANGE THE WAY YOU GAME</p>
-
+            <h1>Welcome to Wicked Hosting</h1>
+            <p>Experience the Best Minecraft Servers</p>
             <a href="https://www.buymeacoffee.com/wickedhosting"><img src="https://img.buymeacoffee.com/button-api/?text=Buy a Server!&emoji=💠&slug=wickedhosting&button_colour=BD5FFF&font_colour=ffffff&font_family=Comic&outline_colour=000000&coffee_colour=FFDD00" /></a>
-            <a href="https://discord.com/invite/zSrMZgXxQK" style="display: inline-block; padding: 10px 20px; background-color: #BD5FFF; color: #ffffff; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#9b59b6'" onmouseout="this.style.backgroundColor='#BD5FFF'">cant find your server? (click me)</a>
+            <a href="https://discord.com/invite/zSrMZgXxQK" class="discord-button">Can't find your server? (Click me)</a>
 
+            <div class="copy-container">
+                <p class="mt-3 copy-text" onclick="copyToClipboard()" role="button" aria-label="Copy">MC-IP: test.wickedmc.xyz</p> 
+                
+            </div>
         </div>
-<div class="copy-container">
-    <p class="mt-3 copy-text">Test-Server-IP: test.wickedmc.xyz</p>
-    <span class="copy-button" onclick="copyToClipboard()" role="button" aria-label="Copy">📄</span>
-</div>
     </section>
 
     <!-- Features Section -->
@@ -240,11 +257,16 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container text-center">
+        <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h5>Wicked Hosting</h5>
+                <div class="col-md-12">
                     <p class="small">Wicked Hosting © 2024</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="https://discord.com/invite/zSrMZgXxQK" class="discord-button">Can't find your server? (Click me)</a>
+                </div>
             </div>
         </div>
     </footer>
