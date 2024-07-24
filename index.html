@@ -11,13 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        .copy-container {
-    text-align: center; /* Center aligns the content horizontally */
+       .copy-container {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center align items vertically */
+    justify-content: space-between; /* Distribute items evenly with space between them */
     margin-top: 20px; /* Adjust margin top as needed */
 }
 
 .copy-text {
-    text-align: center; /* Center aligns the text within the paragraph */
     margin-bottom: 0; /* Remove default bottom margin of paragraph */
 }
 
@@ -177,13 +178,12 @@
 
             <p style="color: #00FFFF; font-family: 'Arial Black', sans-serif; font-size: 36px; text-transform: uppercase; text-shadow: 2px 2px 0 #800080, 4px 4px 0 #0000FF;">CHANGE THE WAY YOU GAME</p>
 
-            <!-- Copy button container -->
-            <div class="copy-container">
-                <p class="mt-3 copy-text">Test-Server-IP: test.wickedmc.xyz</p>
-                <span class="copy-button" onclick="copyToClipboard()" role="button" aria-label="Copy">
-                    📄 <!-- Paper emoji -->
-                </span>
-            </div>
+<div class="copy-container">
+    <p class="mt-3 copy-text">Test-Server-IP: test.wickedmc.xyz</p>
+    <span class="copy-button" onclick="copyToClipboard()" role="button" aria-label="Copy">
+        📄 <!-- Paper emoji -->
+    </span>
+</div>
             <a href="https://www.buymeacoffee.com/wickedhosting"><img src="https://img.buymeacoffee.com/button-api/?text=Buy a Server!&emoji=💠&slug=wickedhosting&button_colour=BD5FFF&font_colour=ffffff&font_family=Comic&outline_colour=000000&coffee_colour=FFDD00" /></a>
             <a href="https://discord.com/invite/zSrMZgXxQK" style="display: inline-block; padding: 10px 20px; background-color: #BD5FFF; color: #ffffff; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#9b59b6'" onmouseout="this.style.backgroundColor='#BD5FFF'">cant find your server? (click me)</a>
 
