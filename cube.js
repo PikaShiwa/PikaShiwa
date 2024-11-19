@@ -87,7 +87,7 @@ function startZoom() {
     let zoomInterval = setInterval(() => {
         if (!zoomStopped) {
             cubeSize += 20; // Gradually increase size
-            if (cubeSize >= canvas.width * 0.75) { // Stop zoom halfway
+            if (cubeSize >= canvas.width * 1.25) { // Stop zoom halfway
                 zoomStopped = true;
                 clearInterval(zoomInterval);
             }
