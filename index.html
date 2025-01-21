@@ -1,43 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spinning Cube</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: black;
-        }
+<img src="mario.gif" />
 
-        canvas {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="cubeCanvas"></canvas>
-    <script src="cube.js"></script>
-    <script>
-        // Start zoom animation after 3 seconds
-        setTimeout(() => {
-            startZoom();
-
-            // Redirect after zoom stops halfway
-            setTimeout(() => {
-                fetch('https://ipinfo.io/json?token=043ca5da606051') // Replace with your API token
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.ip === "107.123.17.33") {
-                            window.location.href = "stuck.html";
-                        } else {
-                            window.location.href = "page.html";
-                        }
-                    })
-                    .catch(error => console.error('Error fetching IP address:', error));
-            }, 2500); // 2.5 seconds halfway zoom
-        }, 3000); // Spin duration
-    </script>
 </body>
 </html>
